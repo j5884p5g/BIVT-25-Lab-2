@@ -56,7 +56,6 @@
         public double Task6(double x)
         {
             double answer = 0;
-            const double R = 6371.0; // радиус Земли, км
 
             // code here
 
@@ -78,6 +77,7 @@
         public int Task8(double L, double v)
         {
             int answer = 0;
+            const double R = 6371.0; // радиус Земли, км
 
             // code here
 
@@ -86,4 +86,5 @@
             return answer;
         }
     }
+
 }
