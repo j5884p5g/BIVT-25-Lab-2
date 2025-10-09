@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
+using System;
 
 namespace Lab2
 {
@@ -172,4 +173,26 @@ namespace Lab2
             double SS = 0;
             double SY = 0;
 
-            // code her
+            // code here
+            double x = a;
+            while (x <= b + E)
+            {
+                double Ssum = 0;
+                double elem;
+                int i = 0;
+                do
+                {
+                    elem = Math.Pow((2 * i + 1) * Math.Pow(x, 2 * i), 1) / Factorial(i);
+                    Ssum += elem;
+                    i++;
+                } while (Math.Abs(elem) > E);
+                SS += Ssum;
+                SY += (1 + 2 * x * x) * Math.Exp(x * x);
+                x += h;
+            }
+            // end
+
+            return (SS, SY);
+        }
+    }
+}
