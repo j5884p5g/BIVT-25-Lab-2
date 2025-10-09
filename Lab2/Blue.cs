@@ -7,58 +7,38 @@ namespace Lab2
     public class Blue
     {
         const double E = 0.0001;
-
         public double Task1(int n, double x)
         {
             double answer = 0;
 
             // code here
-            double s = 0;
             for (int k = 1; k <= n; k++)
-            {
-                double term = Math.Sin(k * x) / Math.Pow(x, k - 1);
-                s += term;
-            }
-            answer = s;
+                answer += Math.Sin(k * x) / Math.Pow(x, k - 1);
             // end
 
             return answer;
         }
-
         public double Task2(int n)
         {
             double answer = 0;
 
             // code here
-            double s = 0;
-            double term = -5; 
+            double term = -5;
             for (int k = 1; k <= n; k++)
             {
-                if (k == 1)
-                {
-                    s += term;
-                }
-                else
-                {
-                    term *= -5.0 / k; 
-                    s += term;
-                }
+                if (k > 1) term *= -5.0 / k;
+                answer += term;
             }
-            answer = s;
             // end
 
             return answer;
         }
-
         public long Task3(int n)
         {
             long answer = 0;
 
             // code here
-            if (n == 0)
-            {
-                answer = 0;
-            }
+            if (n == 0) answer = 0;
             else
             {
                 long f0 = 0, f1 = 1;
@@ -74,37 +54,32 @@ namespace Lab2
 
             return answer;
         }
-
         public int Task4(int a, int h, int L)
         {
             int answer = 0;
 
             // code here
-            int n = 0;
-            int next = a;
-            int sum = 0;
-            while (sum + next <= L)
+            int sum = 0, n = 0;
+            while (true)
             {
+                int next = a + n * h;
+                if (sum + next > L) break;
                 sum += next;
                 n++;
-                next = a + n * h;
             }
             answer = n;
             // end
 
             return answer;
         }
-
         public double Task5(double x)
         {
             double answer = 0;
 
             // code here
-            double ch = 0;
-            double zn = 1;
-            double elem = ch / zn; 
+            double ch = 0, zn = 1, elem = 1;
             int i = 1;
-            while (elem > 0.0001)
+            while (Math.Abs(elem) > 0.0001)
             {
                 ch += i;
                 zn *= x;
@@ -116,14 +91,12 @@ namespace Lab2
 
             return answer;
         }
-
         public int Task6(int h, int S, int L)
         {
             int answer = 0;
 
             // code here
-            int cells = S;
-            int t = 0;
+            int cells = S, t = 0;
             while (cells < L)
             {
                 cells *= 2;
@@ -134,7 +107,6 @@ namespace Lab2
 
             return answer;
         }
-
         public (double a, int b, int c) Task7(double S, double I)
         {
             double a = 0;
@@ -142,41 +114,31 @@ namespace Lab2
             int c = 0;
 
             // code here
-            double r = 1.0 + I / 100.0;
-
-            double dayDist = S;
-            double total = 0;
-            for (int d = 1; d <= 7; d++)
+            double r = 1 + I / 100.0;
+            double dist = S, total = 0;
+            for (int d = 0; d < 7; d++)
             {
-                total += dayDist;
-                dayDist *= r;
+                total += dist;
+                dist *= r;
             }
             a = total;
-
-            dayDist = S;
-            total = 0;
-            int days = 0;
+            dist = S; total = 0;
             while (total < 100)
             {
-                total += dayDist;
-                dayDist *= r;
-                days++;
+                total += dist;
+                dist *= r;
+                b++;
             }
-            b = days;
-
-            dayDist = S;
-            int dgt = 0;
-            while (dayDist <= 42)
+            dist = S;
+            while (dist <= 42)
             {
-                dayDist *= r;
-                dgt++;
+                dist *= r;
+                c++;
             }
-            c = dgt;
             // end
 
             return (a, b, c);
         }
-
         public (double SS, double SY) Task8(double a, double b, double h)
         {
             double SS = 0;
@@ -185,23 +147,24 @@ namespace Lab2
             // code here
             for (double x = a; x <= b + E; x += h)
             {
-                double Ssum = 0;
+                double sum = 0;
                 int i = 0;
-                while (true)
+                double term;
+                do
                 {
-                    double term = (2 * i + 1) * Math.Pow(x, 2 * i) / Fact(i);
-                    Ssum += term;
-                    if (Math.Abs(term) < E) break;
+                    double f = 1;
+                    for (int j = 2; j <= i; j++) f *= j;
+                    term = (2 * i + 1) * Math.Pow(x, 2 * i) / f;
+                    sum += term;
                     i++;
                 }
-                SS += Ssum;
+                while (Math.Abs(term) > E);
+                SS += sum;
                 SY += (1 + 2 * x * x) * Math.Exp(x * x);
             }
             // end
 
             return (SS, SY);
         }
-
-        
     }
 }
