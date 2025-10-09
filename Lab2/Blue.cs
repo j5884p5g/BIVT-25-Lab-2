@@ -92,7 +92,7 @@ namespace Lab2
                         elem = ch / zn;
                         answer += elem;
                         i++;
-                    } while (Math.Abs(elem) > 0.0001);
+                    } while (Math.Abs(elem) > E);
                 }
                 // end
             
@@ -176,4 +176,5 @@ namespace Lab2
         }
     }
 }
+
 
