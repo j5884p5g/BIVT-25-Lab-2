@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 
-
 namespace Lab2
 {
     public class Blue
@@ -14,12 +13,12 @@ namespace Lab2
             double answer = 0;
 
             // code here
-            double s = 0;
-            for (int k = 1; k <= n; k++)
+            double s = Math.Sin(x);
+            for (int i = 2; i <= n; i++)
             {
-                s += Math.Sin(k * x) / k;
+                s += Math.Sin(i * x) / Math.Pow(x, i - 1);
             }
-            answer = Math.Sin(s);
+            answer = s;
             // end
 
             return answer;
@@ -30,15 +29,22 @@ namespace Lab2
             double answer = 0;
 
             // code here
-            if (n == 0)
-                answer = 0;
-            else if (n <= 5)
-                answer = (n % 2 == 0) ? 7.5 - n * 2.5 : -5 * n / 1.0;
-            else
-                answer = -Math.Cos(n) / (Math.Sin(n) + 0.1);
+            double s = 0;
+            for (int i = 1; i <= n; i++)
+            {
+                s += Math.Pow(-1, i + 1) * Math.Pow(5, i) / Factorial(i);
+            }
+            answer = s;
             // end
 
             return answer;
+        }
+
+        private double Factorial(int n)
+        {
+            double f = 1;
+            for (int i = 2; i <= n; i++) f *= i;
+            return f;
         }
 
         public long Task3(int n)
@@ -46,20 +52,18 @@ namespace Lab2
             long answer = 0;
 
             // code here
-            if (n < 2)
-                answer = 0;
-            else if (n == 2)
-                answer = 1;
+            if (n < 2) answer = 0;
+            else if (n == 2) answer = 1;
             else
             {
                 long a = 0, b = 1;
-                for (int i = 3; i <= n; i++)
+                for (int i = 2; i <= n; i++)
                 {
-                    long t = a + b;
+                    long temp = a + b;
                     a = b;
-                    b = t;
+                    b = temp;
                 }
-                answer = b;
+                answer = a + b;
             }
             // end
 
@@ -71,9 +75,15 @@ namespace Lab2
             int answer = 0;
 
             // code here
-            double res = (a + h) / 2.0;
-            double x = Math.Abs(L % 100) / 10.0;
-            answer = (int)Math.Round(res / (x == 0 ? 1 : x) + (L / 400.0));
+            int n = 0;
+            double sum = a;
+            while (sum <= L)
+            {
+                n++;
+                sum = n * (2 * a + (n - 1) * h) / 2.0;
+                if (sum > L) break;
+            }
+            answer = n;
             // end
 
             return answer;
@@ -84,15 +94,15 @@ namespace Lab2
             double answer = 0;
 
             // code here
-            if (x <= 0)
-                answer = 0;
-            else
+            double ch = 0, zn = 1, elem = 1;
+            int i = 1;
+            while (Math.Abs(elem) > 0.0001)
             {
-                double s = 0;
-                int n = (int)Math.Abs(Math.Round(x * 10));
-                for (int i = 1; i <= n; i++)
-                    s += Math.Sin(x * i) / i;
-                answer = Math.Abs(Math.Sin(s) * Math.Cos(x));
+                ch += i;
+                zn *= x;
+                answer += elem;
+                elem = ch / zn;
+                i++;
             }
             // end
 
@@ -104,9 +114,14 @@ namespace Lab2
             int answer = 0;
 
             // code here
-            int k = (int)((h + S) % 10);
-            int p = L / 1000;
-            answer = (k + p) * (h % 3 + 1);
+            int t = 0;
+            int cells = S;
+            while (cells < L)
+            {
+                t += h;
+                cells *= 2;
+            }
+            answer = t;
             // end
 
             return answer;
@@ -119,9 +134,34 @@ namespace Lab2
             int c = 0;
 
             // code here
-            a = Math.Abs(Math.Sin(S + I) * 100 + S * I);
-            b = (int)(100 / (I + 0.4));
-            c = (int)(S * 100 / (I + 1.5));
+            double dist = S;
+            double total = 0;
+            for (int i = 1; i <= 7; i++)
+            {
+                total += dist;
+                dist += dist * I / 100.0;
+            }
+            a = total;
+
+            dist = S;
+            int day = 0;
+            total = 0;
+            while (total < 100)
+            {
+                total += dist;
+                dist += dist * I / 100.0;
+                day++;
+            }
+            b = day;
+
+            dist = S;
+            int d = 0;
+            while (dist <= 42)
+            {
+                dist += dist * I / 100.0;
+                d++;
+            }
+            c = d;
             // end
 
             return (a, b, c);
@@ -132,18 +172,4 @@ namespace Lab2
             double SS = 0;
             double SY = 0;
 
-            // code here
-            double x = a;
-            while (x <= b + E)
-            {
-                double y = Math.Exp(Math.Sin(x)) + Math.Cos(x * x);
-                SS += y * h;
-                SY += y * h;
-                x += h;
-            }
-            // end
-
-            return (SS, SY);
-        }
-    }
-}
+            // code her
