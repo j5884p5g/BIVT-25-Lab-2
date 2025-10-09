@@ -73,24 +73,32 @@ namespace Lab2
             return answer;
         }
         public double Task5(double x)
-        {
-            double answer = 0;
-
-            // code here
-            double ch = 0, zn = 1, elem = 1;
-            int i = 1;
-            while (Math.Abs(elem) > 0.0001)
             {
-                ch += i;
-                zn *= x;
-                answer += elem;
-                elem = ch / zn;
-                i++;
+                double answer = 0;
+            
+                // code here
+                if (x <= 0)
+                {
+                    answer = 0;
+                }
+                else
+                {
+                    double ch = 0, zn = 1, elem;
+                    int i = 1;
+                    do
+                    {
+                        ch += i;
+                        zn *= x;
+                        elem = ch / zn;
+                        answer += elem;
+                        i++;
+                    } while (Math.Abs(elem) > 0.0001);
+                }
+                // end
+            
+                return answer;
             }
-            // end
 
-            return answer;
-        }
         public int Task6(int h, int S, int L)
         {
             int answer = 0;
@@ -168,3 +176,4 @@ namespace Lab2
         }
     }
 }
+
