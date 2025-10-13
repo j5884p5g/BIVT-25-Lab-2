@@ -89,4 +89,6 @@ namespace Lab2
             return (SS, SY);
         }
     }
+
 }
+
