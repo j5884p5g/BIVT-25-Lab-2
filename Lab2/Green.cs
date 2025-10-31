@@ -77,20 +77,17 @@ namespace Lab2
         }
         public int Task5(double x)
         {
-            int answer = 0;
+            int answer = 2;
 
             // code here
-            double k = 1.0 / x;
-            double sum = 0;
-            int n = 1;
-
-            while (Math.Abs(sum - k) >= E)
+            double a = 1.0 / x;
+            double b = 1.0 / (x * x);
+            while (Math.Abs(a - b) >= E)
             {
-                sum += 1.0 / n;
-                n++;
+                a = b;
+                b = b / x;
+                answer++;
             }
-
-            answer = n - 1;
             // end
             return answer;
         }
@@ -155,3 +152,4 @@ namespace Lab2
         }
     }
 }
+
