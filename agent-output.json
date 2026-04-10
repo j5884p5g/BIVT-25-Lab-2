@@ -1,0 +1,11 @@
+{
+  "vulnerable": "yes",
+  "human_review_needed": false,
+  "exploit_file": "pwn.sh",
+  "exploit_job": "tests",
+  "workflow_file": "dotnet-desktop.yml",
+  "sink": "dotnet restore Lab2/Lab2.sln",
+  "local_test_result": "success",
+  "reason": "The workflow checkouts untrusted PR code and runs 'dotnet restore' and 'dotnet build' which can be exploited via Directory.Build.props to execute arbitrary commands. Local testing with act confirmed the execution of the exploit script.",
+  "notes": "Although the workflow specifies 'windows-latest', the mandatory exploit command uses 'sudo' (Linux-only). Local testing was performed by forcing the job to run on 'ubuntu-latest' and removing Windows-only steps (setup-msbuild). The exploit script was successfully executed."
+}
